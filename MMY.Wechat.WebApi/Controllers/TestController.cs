@@ -13,7 +13,7 @@ namespace MMY.Wechat.WebApi.Controllers
         public ActionResult Index()
         {
             string url = "http://wx.maimaiyin.cn/Oauth";
-            var mmyAppid = "wx19cdf29cb703455b ";
+            var mmyAppid = "wx19cdf29cb703455b";
             var mmyRedirecturl = System.Web.HttpUtility.HtmlEncode(url);
             string result = $"https://open.weixin.qq.com/connect/oauth2/authorize?appid={mmyAppid}&redirect_uri={mmyRedirecturl}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
             ViewBag.result = result;

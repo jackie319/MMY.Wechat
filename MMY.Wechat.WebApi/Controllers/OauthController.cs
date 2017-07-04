@@ -21,9 +21,9 @@ namespace MMY.Wechat.WebApi.Controllers
             RedirectUrl = model.RedirectUri;
             //同一个公众号的项目共用授权
             string url = "http://wx.maimaiyin.cn/Oauth";
-            var appid = "wx19cdf29cb703455b ";
-            var redirecturl = System.Web.HttpUtility.HtmlEncode(url);
-            string result = $"https://open.weixin.qq.com/connect/oauth2/authorize?appid={appid}&redirect_uri={redirecturl}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+            var mmyAppid = "wx19cdf29cb703455b";
+            var mmyRedirecturl = System.Web.HttpUtility.HtmlEncode(url);
+            string result = $"https://open.weixin.qq.com/connect/oauth2/authorize?appid={mmyAppid}&redirect_uri={mmyRedirecturl}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
             return Redirect(result);
         }
 
