@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MMY.Wechat.Service", "MMY.Wechat.Service\MMY.Wechat.Service.csproj", "{4C1195A1-FCCE-458C-B808-29E00DE77EF0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MMY.Wechat.WebApi", "MMY.Wechat.WebApi\MMY.Wechat.WebApi.csproj", "{B18C81C3-37A7-4B0A-9BA1-ECDD220250C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{4C1195A1-FCCE-458C-B808-29E00DE77EF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C1195A1-FCCE-458C-B808-29E00DE77EF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C1195A1-FCCE-458C-B808-29E00DE77EF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B18C81C3-37A7-4B0A-9BA1-ECDD220250C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B18C81C3-37A7-4B0A-9BA1-ECDD220250C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B18C81C3-37A7-4B0A-9BA1-ECDD220250C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B18C81C3-37A7-4B0A-9BA1-ECDD220250C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
