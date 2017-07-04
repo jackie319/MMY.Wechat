@@ -7,6 +7,9 @@ using System.Web.Mvc;
 
 namespace MMY.Wechat.WebApi.Controllers
 {
+    /// <summary>
+    /// 微信授权代理
+    /// </summary>
     public class OauthController : Controller
     {
         private string RedirectUrl { get; set; }
@@ -19,11 +22,11 @@ namespace MMY.Wechat.WebApi.Controllers
         public ActionResult GetCode(OauthViewModel model)
         {
             RedirectUrl = model.RedirectUri;
-            //同一个公众号的项目共用授权
             string url = "http://wx.maimaiyin.cn/Oauth";
             var mmyAppid = "wx19cdf29cb703455b";
             var mmyRedirecturl = System.Web.HttpUtility.HtmlEncode(url);
             string result = $"https://open.weixin.qq.com/connect/oauth2/authorize?appid={mmyAppid}&redirect_uri={mmyRedirecturl}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+            //没有出现授权页面，而是白屏，基本上是地址result 拼写错误，大小写，空格等。
             return Redirect(result);
         }
 
