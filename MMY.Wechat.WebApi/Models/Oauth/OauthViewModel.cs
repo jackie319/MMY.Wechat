@@ -7,8 +7,7 @@ namespace MMY.Wechat.WebApi.Models.Oauth
 {
     public class OauthViewModel
     {
-        public  string AppID { get; set; }
-
         public string RedirectUri { get; set; }
+
     }
 }
