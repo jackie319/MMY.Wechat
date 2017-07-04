@@ -1,0 +1,11 @@
+﻿@model     MMY.Wechat.WebApi.Models.Oauth.OauthViewModel
+@{
+
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=@Model.AppID&redirect_uri=@Model.RedirectUri&response_type=
+
+code&scope=snsapi_userinfo&state=STATE#wechat_redirect  ">点我</a>
