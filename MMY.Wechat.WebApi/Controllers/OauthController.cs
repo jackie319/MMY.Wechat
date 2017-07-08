@@ -27,6 +27,8 @@ namespace MMY.Wechat.WebApi.Controllers
             var mmyRedirecturl = System.Web.HttpUtility.HtmlEncode(url);
             string result = $"https://open.weixin.qq.com/connect/oauth2/authorize?appid={mmyAppid}&redirect_uri={mmyRedirecturl}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
             //没有出现授权页面，而是白屏，基本上是地址result 拼写错误，大小写，空格等。
+            //尤其注意：由于授权操作安全等级较高，所以在发起授权请求时，
+            //微信会对授权链接做正则强匹配校验，如果链接的参数顺序不对，授权页面将无法正常访问
             return Redirect(result);
         }
 
