@@ -41,6 +41,8 @@ namespace MMY.Wechat.WebApi.Controllers
         public ActionResult Index(CodeViewModel model)
         {
             //跳转到RedirectUrl带上code
+            var redirectUrl = $"http://m.maimaiyin.cn/code?code={model.Code}";
+            //return Redirect(result);
             return View(model);
         }
     }
