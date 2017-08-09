@@ -1,4 +1,5 @@
-﻿using MMY.Wechat.WebApi.Models.Oauth;
+﻿using log4net;
+using MMY.Wechat.WebApi.Models.Oauth;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,11 @@ namespace MMY.Wechat.WebApi.Controllers
     /// </summary>
     public class OauthController : Controller
     {
+        private ILog _log;
+        public OauthController()
+        {
+            _log=LogManager.GetLogger(typeof(OauthController));
+        }
         /// <summary>
         /// 想要进行微信授权的项目跳转到此地址
         /// 传入返回的页面地址
@@ -19,15 +25,16 @@ namespace MMY.Wechat.WebApi.Controllers
         /// <returns></returns>
         public ActionResult GetCode(OauthViewModel model)
         {
-            string state ="STATE";
-            if (!string.IsNullOrEmpty(model.State))
+            //_log.Info("getcode的RedirectUrl="+model.RedirectUrl);
+            string redirectUrl = "";
+            if (!string.IsNullOrEmpty(model.RedirectUrl))
             {
-                state = model.State;
+                redirectUrl = model.RedirectUrl;
             }
-            string url = "http://wx.maimaiyin.cn/Oauth";
+            string url = $"http://wx.maimaiyin.cn/Oauth?RedirectUrl={redirectUrl}";
             var mmyAppid = "wx19cdf29cb703455b";//TODO:
             var mmyRedirecturl = System.Web.HttpUtility.HtmlEncode(url);
-            string result = $"https://open.weixin.qq.com/connect/oauth2/authorize?appid={mmyAppid}&redirect_uri={mmyRedirecturl}&response_type=code&scope=snsapi_userinfo&state={state}#wechat_redirect";
+            string result = $"https://open.weixin.qq.com/connect/oauth2/authorize?appid={mmyAppid}&redirect_uri={mmyRedirecturl}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
             //没有出现授权页面，而是白屏，基本上是地址result 拼写错误，大小写，空格等。
             //尤其注意：由于授权操作安全等级较高，所以在发起授权请求时，
             //微信会对授权链接做正则强匹配校验，如果链接的参数顺序不对，授权页面将无法正常访问
@@ -42,17 +49,19 @@ namespace MMY.Wechat.WebApi.Controllers
         /// <returns></returns>
         public ActionResult Index(CodeViewModel model)
         {
+           // _log.Info("Index的RedirectUrl=" + model.RedirectUrl);
             //跳转到State带上code
             var redirectUrl = "";;
             if (model.State.Contains("?"))
             {
-                redirectUrl = $"{model.State}&code={model.Code}";
+                redirectUrl = $"{model.RedirectUrl}&code={model.Code}";
             }
             else{
-                redirectUrl = $"{model.State}?code={model.Code}";
+                redirectUrl = $"{model.RedirectUrl}?code={model.Code}";
             }
+            //_log.Info("Index的RedirectUrl=" + redirectUrl);
             return Redirect(redirectUrl);
-          //  return View(model);
+           //return View(model);
         }
     }
 }

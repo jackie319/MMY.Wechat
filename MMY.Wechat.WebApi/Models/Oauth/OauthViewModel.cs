@@ -10,7 +10,7 @@ namespace MMY.Wechat.WebApi.Models.Oauth
         /// <summary>
         /// 原访问地址
         /// </summary>
-        public string State { get; set; }
+        public string RedirectUrl { get; set; }
 
     }
 }
