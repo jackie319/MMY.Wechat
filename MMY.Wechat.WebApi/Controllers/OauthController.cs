@@ -25,16 +25,21 @@ namespace MMY.Wechat.WebApi.Controllers
         /// <returns></returns>
         public ActionResult GetCode(OauthViewModel model)
         {
-            //_log.Info("getcode的RedirectUrl="+model.RedirectUrl);
             string redirectUrl = "";
+            string state = "STATE";
             if (!string.IsNullOrEmpty(model.RedirectUrl))
             {
                 redirectUrl = model.RedirectUrl;
             }
+          
+            if (!string.IsNullOrEmpty(model.State))
+            {
+                state = model.State;
+            }
             string url = $"http://wx.maimaiyin.cn/Oauth?RedirectUrl={redirectUrl}";
             var mmyAppid = "wx19cdf29cb703455b";//TODO:
             var mmyRedirecturl = System.Web.HttpUtility.HtmlEncode(url);
-            string result = $"https://open.weixin.qq.com/connect/oauth2/authorize?appid={mmyAppid}&redirect_uri={mmyRedirecturl}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+            string result = $"https://open.weixin.qq.com/connect/oauth2/authorize?appid={mmyAppid}&redirect_uri={mmyRedirecturl}&response_type=code&scope=snsapi_userinfo&{state}=STATE#wechat_redirect";
             //没有出现授权页面，而是白屏，基本上是地址result 拼写错误，大小写，空格等。
             //尤其注意：由于授权操作安全等级较高，所以在发起授权请求时，
             //微信会对授权链接做正则强匹配校验，如果链接的参数顺序不对，授权页面将无法正常访问
@@ -49,17 +54,16 @@ namespace MMY.Wechat.WebApi.Controllers
         /// <returns></returns>
         public ActionResult Index(CodeViewModel model)
         {
-           // _log.Info("Index的RedirectUrl=" + model.RedirectUrl);
             //跳转到State带上code
             var redirectUrl = "";;
             if (model.State.Contains("?"))
             {
-                redirectUrl = $"{model.RedirectUrl}&code={model.Code}";
+                redirectUrl = $"{model.RedirectUrl}&code={model.Code}&state={model.State}";
             }
             else{
-                redirectUrl = $"{model.RedirectUrl}?code={model.Code}";
+                redirectUrl = $"{model.RedirectUrl}?code={model.Code}&state={model.State}";
             }
-            //_log.Info("Index的RedirectUrl=" + redirectUrl);
+            _log.Info("Index的RedirectUrl=" + redirectUrl);
             return Redirect(redirectUrl);
            //return View(model);
         }

@@ -12,5 +12,7 @@ namespace MMY.Wechat.WebApi.Models.Oauth
         /// </summary>
         public string RedirectUrl { get; set; }
 
+        public string State { get; set; }
+
     }
 }
