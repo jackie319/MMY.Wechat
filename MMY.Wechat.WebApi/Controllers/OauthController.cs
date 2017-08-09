@@ -56,7 +56,7 @@ namespace MMY.Wechat.WebApi.Controllers
         {
             //跳转到State带上code
             var redirectUrl = "";;
-            if (model.State.Contains("?"))
+            if (model.RedirectUrl.Contains("?"))
             {
                 redirectUrl = $"{model.RedirectUrl}&code={model.Code}&state={model.State}";
             }
