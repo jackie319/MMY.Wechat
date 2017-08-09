@@ -12,8 +12,6 @@ namespace MMY.Wechat.WebApi.Controllers
     /// </summary>
     public class OauthController : Controller
     {
-        private string RedirectUrl { get; set; }
-    
         /// <summary>
         /// 想要进行微信授权的项目跳转到此地址
         /// 传入返回的页面地址
@@ -21,11 +19,15 @@ namespace MMY.Wechat.WebApi.Controllers
         /// <returns></returns>
         public ActionResult GetCode(OauthViewModel model)
         {
-            RedirectUrl = model.RedirectUri;
+            string state ="STATE";
+            if (!string.IsNullOrEmpty(model.State))
+            {
+                state = model.State;
+            }
             string url = "http://wx.maimaiyin.cn/Oauth";
-            var mmyAppid = "wx19cdf29cb703455b";
+            var mmyAppid = "wx19cdf29cb703455b";//TODO:
             var mmyRedirecturl = System.Web.HttpUtility.HtmlEncode(url);
-            string result = $"https://open.weixin.qq.com/connect/oauth2/authorize?appid={mmyAppid}&redirect_uri={mmyRedirecturl}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+            string result = $"https://open.weixin.qq.com/connect/oauth2/authorize?appid={mmyAppid}&redirect_uri={mmyRedirecturl}&response_type=code&scope=snsapi_userinfo&state={state}#wechat_redirect";
             //没有出现授权页面，而是白屏，基本上是地址result 拼写错误，大小写，空格等。
             //尤其注意：由于授权操作安全等级较高，所以在发起授权请求时，
             //微信会对授权链接做正则强匹配校验，如果链接的参数顺序不对，授权页面将无法正常访问
@@ -40,10 +42,17 @@ namespace MMY.Wechat.WebApi.Controllers
         /// <returns></returns>
         public ActionResult Index(CodeViewModel model)
         {
-            //跳转到RedirectUrl带上code
-            var redirectUrl = $"http://m.maimaiyin.cn/code?code={model.Code}";
-            //return Redirect(result);
-            return View(model);
+            //跳转到State带上code
+            var redirectUrl = "";;
+            if (model.State.Contains("?"))
+            {
+                redirectUrl = $"{model.State}&code={model.Code}";
+            }
+            else{
+                redirectUrl = $"{model.State}?code={model.Code}";
+            }
+            return Redirect(redirectUrl);
+          //  return View(model);
         }
     }
 }
